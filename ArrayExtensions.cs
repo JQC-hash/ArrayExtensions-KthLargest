@@ -7,8 +7,24 @@ public static class ArrayExtensions{
         }
     }
     
-    //For k <= arr.Length
-    public static int KthLargestElement(this int[] arr, int start, int end, int k){
+    public static int FindMinValue(this int[] arr){
+        int min = int.MaxValue;
+        for (int i = 0; i < arr.Length; i++)
+            min = Math.Min(min, arr[i]);
+            
+        return min;
+    }
+    
+    public static int KthLargestElement(this int[] arr, int k){
+        if (k <= 0)
+            return int.MinValue;
+        else if (k > arr.Length)
+            return arr.FindMinValue();
+        else
+            return arr.KthLargetstElement(arr, 0, arr.Length - 1, k);
+    }
+    
+    private static int KthLargestElement(this int[] arr, int start, int end, int k){
         int index = arr.Partition(start, end);
 
         if (index == arr.Length - k)
